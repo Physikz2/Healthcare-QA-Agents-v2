@@ -1,0 +1,30 @@
+# Healthcare QA Agents - Docker Compose Configuration
+# Purpose: Orchestrate the multi-agent service container and local development environment.
+
+version: '3.8'
+
+services:
+  healthcare-qa-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: healthcare-qa-agents-service
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-local-development-secret-key-32chars}
+      - JWT_ALGORITHM=${JWT_ALGORITHM:-HS256}
+      - JWT_EXPIRATION_MINUTES=${JWT_EXPIRATION_MINUTES:-60}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.75}
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

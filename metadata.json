@@ -1,0 +1,6 @@
+{
+  "name": "Healthcare QA Agents",
+  "description": "Multi-agent healthcare QA system that triages test failures, checks compliance against healthcare policy corpora, and generates structured QA reports using Google ADK and Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

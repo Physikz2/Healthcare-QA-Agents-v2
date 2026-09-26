@@ -1,0 +1,62 @@
+[
+  {
+    "id": "HIPAA-SEC-001",
+    "title": "Transmission Security and Encryption",
+    "regulation": "HIPAA Security Rule",
+    "section": "45 CFR 164.312(e)(1)",
+    "description": "Implement technical security measures to guard against unauthorized access to electronic protected health information (ePHI) that is being transmitted over an electronic communications network. Unencrypted transmission of ePHI over public or internal networks without TLS 1.3 is a direct violation.",
+    "keywords": ["encryption", "tls", "transmission", "ephi", "ssl", "plaintext", "network", "cipher"],
+    "compliance_impact": "CRITICAL",
+    "remediation": "Enforce TLS 1.3 encryption on all REST and gRPC endpoints carrying health data."
+  },
+  {
+    "id": "HIPAA-PRIV-002",
+    "title": "Minimum Necessary and De-Identification",
+    "regulation": "HIPAA Privacy Rule",
+    "section": "45 CFR 164.502(b) & 164.514",
+    "description": "When using or disclosing protected health information or when requesting ePHI from another covered entity, reasonable efforts must be made to limit ePHI to the minimum necessary to accomplish the intended purpose. Logs, error messages, and debug traces must never store raw SSN, MRN, patient name, or clinical diagnosis in plaintext.",
+    "keywords": ["phi", "pii", "de-identification", "masking", "ssn", "mrn", "patient", "log", "trace", "leak"],
+    "compliance_impact": "CRITICAL",
+    "remediation": "Apply automatic regex redaction and tokenization for patient identifiers in application logs."
+  },
+  {
+    "id": "FDA-PART11-003",
+    "title": "Audit Trail Integrity and Electronic Signatures",
+    "regulation": "FDA 21 CFR Part 11",
+    "section": "21 CFR 11.10(e)",
+    "description": "Use of secure, computer-generated, time-stamped audit trails to independently record the date and time of operator entries and actions that create, modify, or delete electronic medical records. Record changes shall not obscure previously recorded information. Audit trails must be tamper-proof and immutable.",
+    "keywords": ["audit", "trail", "timestamp", "electronic signature", "tamper", "record", "mutation", "history"],
+    "compliance_impact": "HIGH",
+    "remediation": "Ensure immutable append-only audit logging with UTC timestamps for every EHR data mutation."
+  },
+  {
+    "id": "HL7-FHIR-004",
+    "title": "FHIR Resource Access Control and Consent Validation",
+    "regulation": "HL7 FHIR & US Core",
+    "section": "FHIR R4 Security / SMART on FHIR",
+    "description": "All FHIR API endpoints accessing Patient, Observation, DiagnosticReport, and MedicationRequest resources must validate OAuth 2.0 SMART on FHIR scopes and active patient consent directives before returning clinical resources. Unauthenticated or scope-elevated requests must fail closed with HTTP 403 Forbidden.",
+    "keywords": ["fhir", "hl7", "smart", "patient", "observation", "scope", "consent", "resource", "403", "unauthorized"],
+    "compliance_impact": "HIGH",
+    "remediation": "Verify SMART on FHIR OAuth scopes and patient consent records prior to resource serialization."
+  },
+  {
+    "id": "HITECH-NOTIF-005",
+    "title": "Breach Notification Protocol for Unsecured PHI",
+    "regulation": "HITECH Act",
+    "section": "45 CFR 164.400-414",
+    "description": "Covered entities must notify affected individuals, the HHS Secretary, and in certain circumstances media outlets following the discovery of a breach of unsecured protected health information. High-risk data exposure incidents affecting 500 or more records trigger mandatory immediate escalation.",
+    "keywords": ["breach", "hitech", "incident", "exposure", "notification", "hhs", "unsecured", "leak"],
+    "compliance_impact": "CRITICAL",
+    "remediation": "Trigger incident management workflow and audit log preservation within 1 hour of breach triage."
+  },
+  {
+    "id": "HITRUST-LOG-006",
+    "title": "Access Logging and Privilege Escalation Monitoring",
+    "regulation": "HITRUST CSF v9.4",
+    "section": "Control 09.aa (Logging and Monitoring)",
+    "description": "Privileged user activities, system errors, exceptions, and security-relevant events must be logged, monitored, and regularly reviewed. Failures in authentication or role-based authorization must raise automated alerts to the Security Operations Center.",
+    "keywords": ["hitrust", "rbac", "privilege", "authorization", "escalation", "access control", "security"],
+    "compliance_impact": "MEDIUM",
+    "remediation": "Implement role-based authorization check middleware with centralized alerting on authorization failures."
+  }
+]
